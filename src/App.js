@@ -1,8 +1,7 @@
 import React from "react";
-import "./App.css";
+import Inserir from "./components/Inserir";
 
 function App() {
-  return <div className="App"></div>;
+  return <Inserir />;
 }
-
 export default App;
