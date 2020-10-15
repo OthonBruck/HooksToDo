@@ -1,5 +1,5 @@
 import { Button, TextField } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -44,7 +44,16 @@ export default function Formulario() {
   const classes = useStyles();
   const { handleSubmit, control } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const [toDos, setToDo] = useState([]);
+
+  const onSubmit = (dados) => {
+    const aux = [...toDos, dados];
+    setToDo(aux);
+  };
+
+  useEffect(() => {
+    console.log(toDos);
+  }, [toDos]);
 
   return (
     <div className={classes.root}>
@@ -55,6 +64,7 @@ export default function Formulario() {
               as={<TextField variant="outlined" label="Titulo" />}
               name="titulo"
               control={control}
+              defaultValue=""
             />
           </Grid>
           <Grid item className={classes.gridItem} xs={12}>
@@ -62,6 +72,7 @@ export default function Formulario() {
               as={<TextField variant="outlined" label="Descrição" />}
               name="descricao"
               control={control}
+              defaultValue=""
             />
           </Grid>
           <Grid item className={classes.gridItem} xs={12}>
@@ -69,8 +80,10 @@ export default function Formulario() {
               as={<TextField variant="outlined" label="Data" />}
               name="data"
               control={control}
+              defaultValue=""
             />
           </Grid>
+
           <Button
             className={classes.buttons}
             type="submit"
