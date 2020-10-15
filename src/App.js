@@ -1,7 +1,7 @@
 import React from "react";
-import Inserir from "./components/Inserir";
+import Formulario from "./components/Formulario";
 
 function App() {
-  return <Inserir />;
+  return <Formulario />;
 }
 export default App;
