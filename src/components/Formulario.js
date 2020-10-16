@@ -1,8 +1,9 @@
 import { Button, TextField } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import { useFormularioContext } from "../contexts/FormularioContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     padding: theme.spacing(2),
+    height: 500,
+    width: 500,
   },
   gridItem: {
     display: "flex",
@@ -38,26 +41,29 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#00FFFF",
     color: "black",
   },
+  formmm: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 }));
 
 export default function Formulario() {
   const classes = useStyles();
-  const { handleSubmit, control } = useForm();
 
-  const [toDos, setToDo] = useState([]);
+  const { adicionarToDo } = useFormularioContext();
 
-  const onSubmit = (dados) => {
-    const aux = [...toDos, dados];
-    setToDo(aux);
+  const onSubmit = (data) => {
+    adicionarToDo(data);
   };
 
-  useEffect(() => {
-    console.log(toDos);
-  }, [toDos]);
+  const { handleSubmit, control } = useForm();
+
+  useEffect(() => {}, []);
 
   return (
     <div className={classes.root}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={classes.formmm}>
         <Grid container spacing={3} className={classes.xD}>
           <Grid item className={classes.gridItem} xs={12}>
             <Controller
