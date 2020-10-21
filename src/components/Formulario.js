@@ -1,9 +1,10 @@
 import { Button, TextField } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormularioContext } from "../contexts/FormularioContext";
+import * as Yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   xD: {
+    margin: 50,
     backgroundColor: "#323232",
     display: "flex",
     justifyContent: "center",
@@ -31,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     height: 500,
     width: 500,
+    border: "2px solid #00FFFF",
+    borderRadius: "5px",
   },
   gridItem: {
     display: "flex",
@@ -53,13 +57,25 @@ export default function Formulario() {
 
   const { adicionarToDo } = useFormularioContext();
 
-  const onSubmit = (data) => {
-    adicionarToDo(data);
+  const onSubmit = async (data) => {
+    try {
+      const schema = Yup.object().shape({
+        titulo: Yup.string().required("Obrigatorio"),
+        descricao: Yup.string().required("Obrigatorio"),
+        data: Yup.date().min(new Date("01-01-2020")).max(new Date()).required(),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      adicionarToDo(data);
+    } catch (err) {
+      console.log("deu ruim");
+    }
   };
 
   const { handleSubmit, control } = useForm();
-
-  useEffect(() => {}, []);
 
   return (
     <div className={classes.root}>

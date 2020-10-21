@@ -2,31 +2,41 @@ import React, { createContext, useContext, useState } from "react";
 
 export const FormularioContext = createContext();
 
-const initialState = {
-  listaToDo: [],
-};
+const initialState = [];
 
 export default function FormularioContextProvider({ children }) {
   const [toDos, setToDo] = useState(initialState);
 
   function adicionarToDo(task) {
-    setToDo((prevState) => ({ listaToDo: [task, ...prevState.listaToDo] }));
+    setToDo((prevState) => [task, ...prevState]);
   }
 
-  console.log(toDos.listaToDo);
+  function excluirToDo(index) {
+    const newTask = toDos.filter((_, ind) => ind !== index);
+    console.log(toDos.filter((_, ind) => ind !== index));
+    setToDo(newTask);
+  }
+
+  function alterarToDo() {}
 
   return (
-    <FormularioContext.Provider value={{ adicionarToDo, ...toDos }}>
+    <FormularioContext.Provider
+      value={{ adicionarToDo, excluirToDo, alterarToDo, toDos }}
+    >
       {children}
     </FormularioContext.Provider>
   );
 }
 
 export function useFormularioContext() {
-  const { adicionarToDo, listaToDo } = useContext(FormularioContext);
+  const { adicionarToDo, excluirToDo, alterarToDo, toDos } = useContext(
+    FormularioContext
+  );
 
   return {
     adicionarToDo,
-    listaToDo,
+    excluirToDo,
+    alterarToDo,
+    toDos,
   };
 }
