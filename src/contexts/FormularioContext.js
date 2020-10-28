@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 
 export const FormularioContext = createContext();
 
@@ -7,21 +7,45 @@ const initialState = [];
 export default function FormularioContextProvider({ children }) {
   const [toDos, setToDo] = useState(initialState);
 
-  function adicionarToDo(task) {
+  const adicionarToDo = useCallback((task) => {
     setToDo((prevState) => [task, ...prevState]);
-  }
+  }, []);
 
-  function excluirToDo(index) {
-    const newTask = toDos.filter((_, ind) => ind !== index);
-    console.log(toDos.filter((_, ind) => ind !== index));
-    setToDo(newTask);
-  }
+  const excluirToDo = useCallback(
+    (index) => {
+      const newTask = toDos.filter((_, ind) => ind !== index);
+      setToDo(newTask);
+    },
+    [toDos]
+  );
 
-  function alterarToDo() {}
+  const alterarToDo = useCallback(
+    (task, index) => {
+      setToDo(
+        toDos.map((_, id) => {
+          if (id === index) {
+            return {
+              ...task,
+            };
+          } else {
+            return {
+              ..._,
+            };
+          }
+        })
+      );
+    },
+    [toDos]
+  );
 
   return (
     <FormularioContext.Provider
-      value={{ adicionarToDo, excluirToDo, alterarToDo, toDos }}
+      value={{
+        adicionarToDo,
+        excluirToDo,
+        alterarToDo,
+        toDos,
+      }}
     >
       {children}
     </FormularioContext.Provider>

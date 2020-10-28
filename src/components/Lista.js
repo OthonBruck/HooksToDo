@@ -17,15 +17,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Lista() {
   const classes = useStyles();
-
   const { toDos } = useFormularioContext();
+
   return (
     <div>
-      <ul className={classes.lista}>
-        {toDos.map((task, index) => (
-          <Tarefa key={index} task={task} id={index}></Tarefa>
-        ))}
-      </ul>
+      <div>
+        <ul className={classes.lista}>
+          {toDos.map((task, index) => (
+            <Tarefa key={index} task={task} id={index} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
