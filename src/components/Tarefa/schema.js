@@ -2,10 +2,12 @@ import * as Yup from "yup";
 
 const schema = Yup.object().shape({
   titulo: Yup.string()
+    .trim("Não é permitido apenas espaços em branco")
     .required("Obrigatorio")
     .min(3, "No minimo três caracteres")
     .max(30, "No máximo trinta caracteres"),
   descricao: Yup.string()
+    .trim("Não é permitido apenas espaços em branco")
     .required("Obrigatorio")
     .min(3, "No minimo três caracteres")
     .max(30, "No máximo trinta caracteres"),
