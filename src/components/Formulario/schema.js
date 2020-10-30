@@ -11,7 +11,7 @@ const schema = Yup.object().shape({
     .max(30, "No máximo trinta caracteres"),
   data: Yup.date()
     .min(new Date("01-01-2020"), "A data deve ser depois de 01-01-2020")
-    .max(new Date("12-31-2020"), "Limite de data 12-31-2020")
+    .max(new Date("12-31-2020"), "Limite de data 31-12-2020")
     .required("Obrigatorio"),
 });
 

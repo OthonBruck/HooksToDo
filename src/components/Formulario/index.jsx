@@ -19,23 +19,20 @@ export default function Formulario() {
 
   const { adicionarToDo } = useFormularioContext();
 
-
   function formatDate(date) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
 
-    return [year, month, day].join('-');
-}
+    return [day, month, year].join("/");
+  }
 
   const onSubmit = async (dado) => {
-    adicionarToDo({...dado, data: formatDate(dado.data)})
+    adicionarToDo({ ...dado, data: formatDate(dado.data) });
   };
 
   const methods = useForm({
@@ -104,6 +101,7 @@ export default function Formulario() {
               <label className={classes.label}>Destaque ?</label>
               <Controller
                 name="destaque"
+                defaultValue={false}
                 render={({ onChange, onBlur, checked, name }) => (
                   <Checkbox
                     color="default"

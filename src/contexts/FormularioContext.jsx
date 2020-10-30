@@ -21,9 +21,7 @@ export default function FormularioContextProvider({ children }) {
 
   const alterarToDo = useCallback(
     (task, index) => {
-      setToDo(
-        toDos.map((todo, id) => id === index ? task : todo)
-      );
+      setToDo(toDos.map((todo, id) => (id === index ? task : todo)));
     },
     [toDos]
   );
