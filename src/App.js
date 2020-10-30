@@ -1,7 +1,7 @@
 import React from "react";
-import Formulario from "./components/Formulario";
-import Lista from "./components/Lista";
-import FormularioContextProvider from "./contexts/FormularioContext";
+import Formulario from "./components/Formulario/index.jsx";
+import Lista from "./components/Lista/index.jsx";
+import FormularioContextProvider from "./contexts/FormularioContext.jsx";
 
 function App() {
   return (
