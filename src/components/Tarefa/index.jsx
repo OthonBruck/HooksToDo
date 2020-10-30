@@ -4,7 +4,6 @@ import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Alert from "@material-ui/lab/Alert";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
 
@@ -17,6 +16,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 
 import clsx from "clsx";
+import Errormessage from "./Errormessage.jsx";
 
 export default function Tarefas({ task, id }) {
   const classes = useStyles();
@@ -44,7 +44,6 @@ export default function Tarefas({ task, id }) {
   });
 
   const { handleSubmit, errors } = methods;
-  console.log(task);
   return (
     <li>
       <FormProvider {...methods}>
@@ -79,16 +78,7 @@ export default function Tarefas({ task, id }) {
                       name="titulo"
                       defaultValue={task.titulo}
                     />
-                    {errors.titulo &&
-                      (errors.titulo.message !== undefined ? (
-                        <Alert
-                          className={classes.alert}
-                          variant="filled"
-                          severity="error"
-                        >
-                          {errors.titulo.message}
-                        </Alert>
-                      ) : null)}
+                    <Errormessage errors={errors.titulo}/>
                   </div>
                 ) : (
                   <Typography
@@ -118,16 +108,7 @@ export default function Tarefas({ task, id }) {
                       name="descricao"
                       defaultValue={task.descricao}
                     />
-                    {errors.descricao &&
-                      (errors.descricao.message !== undefined ? (
-                        <Alert
-                          className={classes.alert}
-                          variant="filled"
-                          severity="error"
-                        >
-                          {errors.descricao.message}
-                        </Alert>
-                      ) : null)}
+                    <Errormessage errors={errors.descricao}/>
                   </div>
                 ) : (
                   <Typography
@@ -156,16 +137,7 @@ export default function Tarefas({ task, id }) {
                         defaultValue="2020-01-01"
                       />
                     </Grid>
-                    {errors.data &&
-                      (errors.data.message !== undefined ? (
-                        <Alert
-                          className={classes.alert}
-                          variant="filled"
-                          severity="error"
-                        >
-                          {errors.data.message}
-                        </Alert>
-                      ) : null)}
+                    <Errormessage errors={errors.data}/>
                   </div>
                 ) : (
                   <Typography

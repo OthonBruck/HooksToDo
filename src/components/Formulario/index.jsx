@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
-import Alert from "@material-ui/lab/Alert";
 import useStyles from "./styles";
 import schema from "./schema";
 
@@ -13,6 +12,7 @@ import { useFormularioContext } from "../../contexts/FormularioContext";
 import clsx from "clsx";
 
 import { yupResolver } from "@hookform/resolvers";
+import Errormessage from "./Errormessage.jsx";
 
 export default function Formulario() {
   const classes = useStyles();
@@ -53,16 +53,7 @@ export default function Formulario() {
                 defaultValue=""
               />
             </Grid>
-            {errors.titulo &&
-              (errors.titulo.message !== undefined ? (
-                <Alert
-                  className={classes.alert}
-                  variant="filled"
-                  severity="error"
-                >
-                  {errors.titulo.message}
-                </Alert>
-              ) : null)}
+            <Errormessage errors={errors.titulo}/>
             <Grid item className={classes.gridItem} xs={12}>
               <Controller
                 as={<TextField variant="standard" label="Descrição" />}
@@ -70,16 +61,7 @@ export default function Formulario() {
                 defaultValue=""
               />
             </Grid>
-            {errors.descricao &&
-              (errors.descricao.message !== undefined ? (
-                <Alert
-                  className={classes.alert}
-                  variant="filled"
-                  severity="error"
-                >
-                  {errors.descricao.message}
-                </Alert>
-              ) : null)}
+            <Errormessage errors={errors.descricao}/>
             <Grid item className={classes.gridItem} xs={12}>
               <Controller
                 as={<TextField variant="standard" label="Data" type="date" />}
@@ -87,16 +69,7 @@ export default function Formulario() {
                 defaultValue="2020-01-01"
               />
             </Grid>
-            {errors.data &&
-              (errors.data.message !== undefined ? (
-                <Alert
-                  className={classes.alert}
-                  variant="filled"
-                  severity="error"
-                >
-                  {errors.data.message}
-                </Alert>
-              ) : null)}
+            <Errormessage errors={errors.data}/>
             <Grid item className={classes.gridItem} xs={12}>
               <label className={classes.label}>Destaque ?</label>
               <Controller
