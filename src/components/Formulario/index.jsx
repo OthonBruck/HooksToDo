@@ -1,16 +1,12 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import useStyles from "./styles";
 import schema from "./schema";
 
 import { useForm, FormProvider } from "react-hook-form";
 import { useFormularioContext } from "../../contexts/FormularioContext";
 
-
 import { yupResolver } from "@hookform/resolvers";
-import FieldInput from "../Fields/FieldsInput/index";
-import FieldCheckbox from "../Fields/FieldsCheckBox/index";
+import Form from "../Form/index";
 
 export default function Formulario() {
   const classes = useStyles();
@@ -43,45 +39,7 @@ export default function Formulario() {
     <div className={classes.root}>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-          <Grid container spacing={3} className={classes.gridContainer}>
-            <Grid item className={classes.gridItem} xs={12}>
-              <FieldInput
-                errors={errors.titulo}
-                name={"titulo"}
-                label={"Titulo"}
-                type="text"
-                defaultValue=""
-              />
-            </Grid>
-            <Grid item className={classes.gridItem} xs={12}>
-            <FieldInput
-              errors={errors.descricao}
-              name={"descricao"}
-              label={"Descrição"}
-              type="text"
-              defaultValue=""
-            />
-            </Grid>
-            <Grid item className={classes.gridItem} xs={12}>
-              <FieldInput
-                errors={errors.data}
-                name={"data"}
-                label={"Data"}
-                type={"date"}
-                defaultValue="2020-01-01"
-              />
-            </Grid>
-            <Grid item className={classes.gridItem} xs={12}>
-              <FieldCheckbox nome="destaque" label="Destaque ?" defaultValue={false} />
-            </Grid>
-            <Button
-              className={classes.buttons}
-              type="submit"
-              variant="contained"
-            >
-              Enviar
-            </Button>
-          </Grid>
+          <Form errors={errors} />
         </form>
       </FormProvider>
     </div>

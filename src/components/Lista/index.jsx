@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormularioContext } from "../../contexts/FormularioContext";
-import useStyles from './styles';
+import useStyles from "./styles";
 import Tarefa from "../Tarefa/index";
 
 export default function Lista() {

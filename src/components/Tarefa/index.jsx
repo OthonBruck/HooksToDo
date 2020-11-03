@@ -51,7 +51,7 @@ export default function Tarefas({ task, id }) {
             <Grid item className={classes.gridDestaque} xs={12}>
               <div>
                 {task.destaque ? (
-                    <StarOutlinedIcon fontSize="large" />
+                  <StarOutlinedIcon fontSize="large" />
                 ) : (
                   <StarBorderOutlinedIcon fontSize="large" />
                 )}
@@ -60,13 +60,13 @@ export default function Tarefas({ task, id }) {
             <Grid item className={classes.gridItem} xs={12}>
               <div>
                 {open ? (
-                    <FieldInput
-                      errors={errors.titulo}
-                      name={"titulo"}
-                      label={"Titulo"}
-                      value={task.titulo}
-                      defaultValue={task.titulo}
-                    />
+                  <FieldInput
+                    errors={errors.titulo}
+                    name={"titulo"}
+                    label={"Titulo"}
+                    value={task.titulo}
+                    defaultValue={task.titulo}
+                  />
                 ) : (
                   <Typography
                     className={classes.editable}
@@ -80,13 +80,13 @@ export default function Tarefas({ task, id }) {
             <Grid item className={classes.gridItem} xs={12}>
               <div>
                 {open ? (
-                    <FieldInput
-                      errors={errors.descricao}
-                      name={"descricao"}
-                      label={"Descrição"}
-                      value={task.descricao}
-                      defaultValue={task.descricao}
-                    />
+                  <FieldInput
+                    errors={errors.descricao}
+                    name={"descricao"}
+                    label={"Descrição"}
+                    value={task.descricao}
+                    defaultValue={task.descricao}
+                  />
                 ) : (
                   <Typography
                     className={classes.editable}
@@ -100,14 +100,14 @@ export default function Tarefas({ task, id }) {
             <Grid item className={classes.gridItem} xs={12}>
               <div>
                 {open ? (
-                    <FieldInput
-                      errors={errors.data}
-                      name={"data"}
-                      label={"Data"}
-                      type={"date"}
-                      defaultValue={task.data}
-                      value={task.data}
-                    />
+                  <FieldInput
+                    errors={errors.data}
+                    name={"data"}
+                    label={"Data"}
+                    type={"date"}
+                    defaultValue={task.data}
+                    value={task.data}
+                  />
                 ) : (
                   <Typography
                     className={classes.editable}
