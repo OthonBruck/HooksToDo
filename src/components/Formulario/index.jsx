@@ -1,18 +1,16 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "./styles";
 import schema from "./schema";
 
-import { useForm, Controller, FormProvider } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { useFormularioContext } from "../../contexts/FormularioContext";
 
-import clsx from "clsx";
 
 import { yupResolver } from "@hookform/resolvers";
-import Errormessage from "./Errormessage.jsx";
+import FieldInput from "../Fields/FieldsInput/index";
+import FieldCheckbox from "../Fields/FieldsCheckBox/index";
 
 export default function Formulario() {
   const classes = useStyles();
@@ -28,7 +26,7 @@ export default function Formulario() {
     if (month.length < 2) month = "0" + month;
     if (day.length < 2) day = "0" + day;
 
-    return [day, month, year].join("/");
+    return [year, month, day].join("-");
   }
 
   const onSubmit = async (dado) => {
@@ -47,50 +45,34 @@ export default function Formulario() {
         <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
           <Grid container spacing={3} className={classes.gridContainer}>
             <Grid item className={classes.gridItem} xs={12}>
-              <Controller
-                as={<TextField variant="standard" label="Titulo" />}
-                name="titulo"
+              <FieldInput
+                errors={errors.titulo}
+                name={"titulo"}
+                label={"Titulo"}
+                type="text"
                 defaultValue=""
               />
             </Grid>
-            <Errormessage errors={errors.titulo}/>
             <Grid item className={classes.gridItem} xs={12}>
-              <Controller
-                as={<TextField variant="standard" label="Descrição" />}
-                name="descricao"
-                defaultValue=""
-              />
+            <FieldInput
+              errors={errors.descricao}
+              name={"descricao"}
+              label={"Descrição"}
+              type="text"
+              defaultValue=""
+            />
             </Grid>
-            <Errormessage errors={errors.descricao}/>
             <Grid item className={classes.gridItem} xs={12}>
-              <Controller
-                as={<TextField variant="standard" label="Data" type="date" />}
-                name="data"
+              <FieldInput
+                errors={errors.data}
+                name={"data"}
+                label={"Data"}
+                type={"date"}
                 defaultValue="2020-01-01"
               />
             </Grid>
-            <Errormessage errors={errors.data}/>
             <Grid item className={classes.gridItem} xs={12}>
-              <label className={classes.label}>Destaque ?</label>
-              <Controller
-                name="destaque"
-                defaultValue={false}
-                render={({ onChange, onBlur, checked, name }) => (
-                  <Checkbox
-                    color="default"
-                    onBlur={onBlur}
-                    checkedIcon={
-                      <span
-                        className={clsx(classes.icon, classes.checkedIcon)}
-                      />
-                    }
-                    icon={<span className={classes.icon} />}
-                    onChange={(e) => onChange(e.target.checked)}
-                    checked={checked}
-                    name={name}
-                  />
-                )}
-              />
+              <FieldCheckbox nome="destaque" label="Destaque ?" defaultValue={false} />
             </Grid>
             <Button
               className={classes.buttons}

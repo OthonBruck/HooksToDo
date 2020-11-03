@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
@@ -11,12 +9,12 @@ import useStyles from "./styles";
 import schema from "./schema";
 
 import { useFormularioContext } from "../../contexts/FormularioContext";
-import { Controller, FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers";
 
-import clsx from "clsx";
-import Errormessage from "./Errormessage.jsx";
+import FieldInput from "../Fields/FieldsInput";
+import FieldCheckbox from "../Fields/FieldsCheckBox";
 
 export default function Tarefas({ task, id }) {
   const classes = useStyles();
@@ -32,8 +30,9 @@ export default function Tarefas({ task, id }) {
     if (month.length < 2) month = "0" + month;
     if (day.length < 2) day = "0" + day;
 
-    return [day, month ,year].join("-");
+    return [year, month, day].join("-");
   }
+
   const validate = async (dado) => {
     alterarToDo({ ...dado, data: formatDate(dado.data) }, id);
     setOpen(false);
@@ -52,9 +51,7 @@ export default function Tarefas({ task, id }) {
             <Grid item className={classes.gridDestaque} xs={12}>
               <div>
                 {task.destaque ? (
-                  <div>
                     <StarOutlinedIcon fontSize="large" />
-                  </div>
                 ) : (
                   <StarBorderOutlinedIcon fontSize="large" />
                 )}
@@ -63,23 +60,13 @@ export default function Tarefas({ task, id }) {
             <Grid item className={classes.gridItem} xs={12}>
               <div>
                 {open ? (
-                  <div>
-                    <Controller
-                      as={
-                        <TextField
-                          variant="standard"
-                          value={task.titulo}
-                          inputProps={{
-                            className: classes.input,
-                          }}
-                          fullWidth
-                        />
-                      }
-                      name="titulo"
+                    <FieldInput
+                      errors={errors.titulo}
+                      name={"titulo"}
+                      label={"Titulo"}
+                      value={task.titulo}
                       defaultValue={task.titulo}
                     />
-                    <Errormessage errors={errors.titulo}/>
-                  </div>
                 ) : (
                   <Typography
                     className={classes.editable}
@@ -93,23 +80,13 @@ export default function Tarefas({ task, id }) {
             <Grid item className={classes.gridItem} xs={12}>
               <div>
                 {open ? (
-                  <div>
-                    <Controller
-                      as={
-                        <TextField
-                          variant="standard"
-                          value={task.descricao}
-                          inputProps={{
-                            className: classes.input,
-                          }}
-                          fullWidth
-                        />
-                      }
-                      name="descricao"
+                    <FieldInput
+                      errors={errors.descricao}
+                      name={"descricao"}
+                      label={"Descrição"}
+                      value={task.descricao}
                       defaultValue={task.descricao}
                     />
-                    <Errormessage errors={errors.descricao}/>
-                  </div>
                 ) : (
                   <Typography
                     className={classes.editable}
@@ -123,22 +100,14 @@ export default function Tarefas({ task, id }) {
             <Grid item className={classes.gridItem} xs={12}>
               <div>
                 {open ? (
-                  <div>
-                    <Grid item className={classes.gridItem} xs={12}>
-                      <Controller
-                        as={
-                          <TextField
-                            variant="standard"
-                            label="Data"
-                            type="date"
-                          />
-                        }
-                        name="data"
-                        defaultValue="2020-01-01"
-                      />
-                    </Grid>
-                    <Errormessage errors={errors.data}/>
-                  </div>
+                    <FieldInput
+                      errors={errors.data}
+                      name={"data"}
+                      label={"Data"}
+                      type={"date"}
+                      defaultValue={task.data}
+                      value={task.data}
+                    />
                 ) : (
                   <Typography
                     className={classes.editable}
@@ -152,31 +121,11 @@ export default function Tarefas({ task, id }) {
             <Grid item className={classes.gridItem} xs={12}>
               <div>
                 {open ? (
-                  <div>
-                    <label className={classes.label}>Destaque ?</label>
-                    <Controller
-                      name="destaque"
-                      defaultValue={task.destaque}
-                      render={({onChange, onBlur, name, value }) => (
-                        <Checkbox
-                          color="default"
-                          onBlur={onBlur}
-                          checkedIcon={
-                            <span
-                              className={clsx(
-                                classes.icon,
-                                classes.checkedIcon
-                              )}
-                            />
-                          }
-                          icon={<span className={classes.icon} />}
-                          onChange={(e) => onChange(e.target.checked)}
-                          checked={value}
-                          name={name}
-                        />
-                      )}
-                    />
-                  </div>
+                  <FieldCheckbox
+                    nome="destaque"
+                    label="Destaque ?"
+                    defaultValue={task.destaque}
+                  />
                 ) : null}
               </div>
             </Grid>
