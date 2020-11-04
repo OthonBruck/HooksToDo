@@ -1,6 +1,6 @@
 # HooksToDo
 
-Projeto criado com intuito de ser uma lista de afazeres, podendo adicionar, remover ou alterar.
+Projeto criado com intuito de ser uma lista de afazeres podendo adicionar, remover ou alterar.
 
 ## Clone e Instalação
 Para rodar a aplicação é necessário ter o [Node.js](https://nodejs.org/en/) na sua maquina.
